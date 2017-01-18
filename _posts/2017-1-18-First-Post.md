@@ -2,11 +2,13 @@
 layout: post
 title: Первый пост в блоге.
 disqus: true
+category: Feed
+tags: [starting]
 ---
 
 Это первый пост в блоге.
 
-Вот так будет выглдяеть кусок кода:
+Вот так будет выглядеть кусок кода:
 
 ```python
 # Welcome. You want to defuse the hashbomb, isn't it? So. You actually have to defuse 5 bombs. Are you ready?

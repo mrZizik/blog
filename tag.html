@@ -1,6 +1,6 @@
 ---
 layout:   default
-title:    Tag
+title:    Теги
 ---
 {% comment%}
 Here we generate all the tags.
@@ -35,13 +35,13 @@ Here we generate all the tags.
 <br/>
 
 <div class="posts">
-<p>
+<p>Теги: 
 {% for tag in tags %}
 <a href="#{{ tag | slugify }}" class="codinfox-tag-mark"> {{ tag }} </a> &nbsp;&nbsp;
 {% endfor %}
 
 {% for tag in tags %}
-<h2 id="{{ tag | slugify }}">{{ tag }}</h2>
+<h2 id="{{ tag | slugify }}">{{ tag }}:</h2>
 <ul class="codinfox-category-list">
   {% for post in site.posts %}
   {% if post.tags contains tag %}
@@ -55,11 +55,10 @@ Here we generate all the tags.
       <a class="codinfox-tag-mark" href="/blog/tag/#{{ tag | slugify }}">{{ tag }}</a>
       {% endfor %}
     </h3>
-  </li>
+  </li>;
   {% endif %}
   {% endfor %}
 </ul>
 {% endfor %}
 
 </div>
-0

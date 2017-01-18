@@ -3,7 +3,7 @@ layout: post
 title: Первый пост в блоге.
 disqus: true
 category: Feed
-tags: [starting]
+tags: [первый, пост, starting]
 ---
 
 Это первый пост в блоге.

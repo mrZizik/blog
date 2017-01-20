@@ -8,7 +8,7 @@ tags: [github, pages, web, html]
 
 >В какой-то момент, как и все наверное, я решил сделать простой сайт-визитку для себя, с дальнейшим превращением ее в блог и портфолио. Брать какую-то CMS или конструктор не хотелось. Не серьезно для IT-шника пилить сайт на Wordpress :-D Вспомнив, старую статью о GIthub Pages, которую я где-то видел, решил погуглить что это такое и с чем едят (Github как бы уже кажется достаточно гиковским). Итого все оказалось довольно просто и я дальше расскажу, как без особо труда и бесплатно можно захостить html+css+js страницу на Github.
 
-![Pages logo](images/github.jpg)
+![Pages logo]({{ site.baseurl }}/images/github.jpg)
 
 *Для того, чтобы проследить за действиями, достаточно базовых знаний git и html.*
 
@@ -16,7 +16,7 @@ tags: [github, pages, web, html]
 
 Расписывать регистрацию смысла не вижу, т.к. она довольно тривиальна. https://github.com/ .
 
-![Registration](images/github_registration.png)
+![Registration]({{ site.baseurl }}/images/github_registration.png)
 
 #### Создаем репозиторий
 
@@ -28,7 +28,7 @@ tags: [github, pages, web, html]
 
 Выберем второй вариант и назовем свой проект test-page.
 
-![Repository creating](images/repo_create.png)
+![Repository creating]({{ site.baseurl }}/images/repo_create.png)
 
 
 
@@ -51,8 +51,8 @@ git push -u origin master
 
 Дальше init создаст локальный репозиторий, add добавить файл README.md в индекс для будущего коммита на сервер. Commit создаст коммит с сообщением "first commit". Remote add добавить удаленной репозиторий к этому локальному, чтобы программма знала, по какому адресу слать ваши сообщения. И push пошлет данные на github.
 
-![Repo init](images/repo_init_console.png)
-![Repo init](images/repo_init_result.png)
+![Repo init]({{ site.baseurl }}/images/repo_init_console.png)
+![Repo init]({{ site.baseurl }}/images/repo_init_result.png)
 
 Вот такой у нас результат в веб версии и консоли.
 
@@ -85,18 +85,18 @@ git push origin master
 
 В этом случае мы не написали какой именно файл добавить в индекс, а поставили точку. Это говорит гиту, что он должен индексировать все файлы в этом каталоге рекурсивно. Удобно, когда вы добавили множество страниц, стилей и JS-кода.
 
-![Uploaded](images/file_loaded.png)
+![Uploaded]({{ site.baseurl }}/images/file_loaded.png)
 
 В гитхабе мы видим, что наш файл успешно загрузился и можем приступить к включению Github Pages, чтобы он начал хостить их как сайты и давать доступ браузеру по ссылке.
 
 Для этого переходим в настройки репозитория на сайте (шестеренка справа) и выбираем Github Pages source нашу master ветку. 
 
 
-![Github Pages On](images/pages_on.png)
+![Github Pages On]({{ site.baseurl }}/images/pages_on.png)
 
 После небольшого ожидания, вы сможете достучаться к сайту по <username>.github.io/test-project
 
-![First page](images/page_show.png)
+![First page]({{ site.baseurl }}/images/page_show.png)
 
 
 В моем случае к github прикручен мой домен и ссылка немного другая. Об этом поговорим в следующий раз.

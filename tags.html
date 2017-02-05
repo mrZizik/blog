@@ -47,7 +47,7 @@ Here we generate all the tags.
   {% if post.tags contains tag %}
   <li>
     <h3>
-      <a href="{{ site.baseurl }}{{ post.url }}">
+      <a href="{{ site.baseurl }}/{{ post.url }}">
         {{ post.title }}
         <small>{{ post.date | date_to_string }};</small>
       </a>

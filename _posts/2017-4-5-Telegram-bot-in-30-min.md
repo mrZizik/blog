@@ -3,7 +3,7 @@ layout: post
 title: Telegram бот в доспехах или разработка ТГ бота с нуля.
 disqus: true
 category: Dev
-tags: [python, flask, telegram-sdk, bot, redis]
+tags: [python, flask, telegram-sdk, bot, nginx, https]
 ---
 
 Всем мир. Сегодня я вам на практике покажу, как с 0 написать несложного Telegram бота. Для начала придумаем тестовое задание. 

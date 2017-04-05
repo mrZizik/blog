@@ -2,10 +2,14 @@ a {
 	text-decoration: none;
 }
 
+.link {
+	color: black;
+}
+
 a:hover {
 	color: #8BC34A;
 }
 
-date {
+.date {
 	color: #757575;
 }

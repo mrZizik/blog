@@ -66,7 +66,7 @@ tags: [python, flask, telegram-sdk, bot, nginx, https]
 
 В течении пары минут мы получим ip адрес и root пароль от сервера на нашу почту. Все, машина работает. Можем коннектиться к ней по ssh.
 
-```shell=
+```shell
 ssh root@%ваш_ip_адрес
 ```
 
@@ -74,20 +74,19 @@ ssh root@%ваш_ip_адрес
 
 Первым делом нам сразу надо создать нового пользователя и входить на сервер из под него, чтобы не стать легкой мишенью для хакеров.
 
-```shell=
+```shell
 adduser gorec # Добавляем пользователя. Вводим данные, которые нас запросит система
 sudo usermod -aG sudo gorec # Даем юзеру возможность исполнять команды от имени админа
 ```
 Теперь необходимо перезайти на сервер под новым пользователем
 
-```shell=
+```shell
 ssh gorec@ваш_ip_адрес
 ```
 
 ## Установка нужных сервисов
 
-
-```shell=
+```shell
 sudo apt update
 sudo apt install python-pip python-dev nginx
 sudo service nginx start
@@ -99,7 +98,7 @@ sudo service nginx start
 
 Выключим на пока наш веб сервер и займемся python.
 
-```shell=
+```shell
 sudo service nginx stop
 ```
 
@@ -107,13 +106,13 @@ sudo service nginx stop
 
 По хорошему, нам надо создавать окружения для каждого из наших python проектов, чтобы их зависимости не начали конфликтовать между собой. Для этого воспользуемся virtualenv.
 
-```shell=
+```shell
 sudo pip install virtualenv
 ```
 
 Создаем папку проекта и стартуем в ней новое изолированное окружение.
 
-```shell=
+```shell
 mkdir CSBot
 cd CSBot
 virtualenv csbot
@@ -125,7 +124,7 @@ source bin/activate
 
 Бота будем писать на микрофреймворке flask, который позволит нам сократит время на разработку. Для перенаправления запросов с nginx на flask будем пользоваться uwsgi.
 
-```shell=
+```shell
 pip install uwsgi flask
 ```
 
@@ -156,7 +155,7 @@ if __name__ == "__main__":
 
 Запускам uwsgi командой:
 
-```shell=
+```shell
 uwsgi --socket 0.0.0.0:5000 --protocol=http -w wsgi:app
 ```
 Если все прошло успешно, вы, перейдя в своем браузере по адресу вашего сервера и порт 5000 должны увидеть It's working.
@@ -166,14 +165,14 @@ uwsgi --socket 0.0.0.0:5000 --protocol=http -w wsgi:app
 Теперь напишем конфиг файл, чтобы Flask приложение поднималось само, даже если сервер перезагрузится.
 Сначала выйдем из нашего окружения.
 
-```shell=
+```shell
 deactivate
 ```
 
 Потом создадим .ini конфиг для uwsgi в папке с ботом.
 Конфиг задает количество процессов, имя сокета, права и файл для логирования.
 
-```
+```shell
 [uwsgi]
 module = wsgi:app
 
@@ -190,20 +189,20 @@ logto = /var/log/uwsgi/%n.log
 
 Так же создадим папку для логов и сделаем ее владельцем себя.
 
-```shell=
+```shell
 mkdir /var/log/uwsgi
 sudo chown -R gorec:gorec /var/log/uwsgi
 ```
 Создадим так же systemd unit файл, для атвоматизации запуска нашего бота.
 
 
-```shell=
+```shell
 sudo nano /etc/systemd/system/csbot.service
 ```
 
 и сам файл
 
-```
+```shell
 [Unit]
 Description=Serving our csbot
 After=network.target
@@ -218,7 +217,7 @@ ExecStart=/home/gorec/CSBot/csbot/bin/uwsgi --ini csbot.ini
 
 Теперь после ввода команды, мы должны увидеть сокет файл в нашей папке проекта.
 
-```shell=
+```shell
 sudo service csbot start
 sudo systemctl enable csbot
 ```
@@ -234,11 +233,11 @@ less /var/log/uwsgi/csbot.log
 
 Дальше нам необходимо настроить веб сервер, чтобы свои запросы он направлял в сокет uwsgi.
 
-```shell=
+```shell
 sudo nano /etc/nginx/sites-available/csbot
 ```
 
-```
+```shell
 server {
     listen 80;
     server_name ваш_айпи;
@@ -253,18 +252,18 @@ server {
 
 Теперь нам надо сделать ссылку на конфиг, в папке sites-enabled
 
-```shell=
+```shell
 sudo ln -s /etc/nginx/sites-available/csbot /etc/nginx/sites-enabled
 ```
 Мы можем проверить наши конфиг файлы с помощью nginx.
 
-```shell=
+```shell
 sudo nginx -t
 ```
 
 Если он сказал, что все ОК, перезапускаем веб сервер.
 
-```shell=
+```shell
 sudo service nginx restart
 ```
 
@@ -276,7 +275,7 @@ sudo service nginx restart
 
 Сначала генерируем наш сертификат и ключ с помощью openssl.
 
-```shell=
+```shell
 cd /etc/ssl/
 sudo openssl genrsa -des3 -passout pass:x -out server.pass.key 2048
 sudo openssl rsa -passin pass:x -in server.pass.key -out server.key
@@ -288,7 +287,7 @@ sudo openssl req -new -key server.key -out server.csr
 
 Следующей командой мы получим сертификат из сгененрированного выше приватного ключа.
 
-```shell=
+```shell
 sudo openssl x509 -req -sha256 -days 365 -in server.csr -signkey server.key -out server.crt
 ```
 
@@ -296,12 +295,12 @@ sudo openssl x509 -req -sha256 -days 365 -in server.csr -signkey server.key -out
 
 Открываем конфиги нашего сайта в nginx:
 
-```shell=
+```shell
 sudo nano /etc/nginx/sites-available/csbot
 ```
 Указвыаем новый порт взамен 80. Указвыаем ключи и сертификаты и протоколы, которые мы можем хендлить. 
 
-```
+```shell
 server {
     listen 443 default ssl;
     server_name ваш_ип;
@@ -324,7 +323,7 @@ server {
 
 Проверяем конфиги и перезапускаем веб сервер
 
-```shell=
+```shell
 sudo nginx -t
 sudo service nginx restart
 ```
@@ -337,12 +336,12 @@ sudo service nginx restart
 
 Сначала установим модуль для работы с Telegram - python-telegram-bot
 
-```shell=
+```shell
 sudo pip install python-telegram-bot
 ```
 Теперь напишем код бота, который всегда отвечает словом hello на любое наше сообщение.
 
-```python=
+```python
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals 
 from flask import Flask, request
@@ -413,7 +412,7 @@ def index():
 Для начала импортируем ReplyKeyboardMarkup для создания клавиатуры и после отправим его в сообщении параметром reply_markup.
 
 
-```python=
+```python
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals 
 from flask import Flask, request
@@ -470,13 +469,13 @@ def index():
 
 Для начала установим наш модуль для работы с valve серверами. Не забудьте перейти в окружение перед установкой. 
 
-```shell=
+```shell
 pip install python-valve
 ```
 
 Теперь в коде определим новую функцию, которая будет генерить строку ответ и возвращать ее нам, для отправки пользователю.
 
-```shell=
+```shell
 server_address = (адрес_сервера, 27015)
 server = valve.source.a2s.ServerQuerier(server_address)
 
@@ -492,6 +491,7 @@ def get_info():
     return answer
 ```
 
+
 Код сам по себе не сложен, но давайте разберем.
 Сначала задаем адрес и порт сервера и создаем объект.
 
@@ -500,7 +500,7 @@ def get_info():
 
 Осталось отправлять полученную строку сообщение пользователю. Для этого правим строку bot.send_message
 
-```python=
+```python
 ...
 bot.send_message(chat_id=chat_id, text=get_info(), reply_markup=kb)
 ...
@@ -508,7 +508,7 @@ bot.send_message(chat_id=chat_id, text=get_info(), reply_markup=kb)
 
 Перезапускаем нашего бота.
 
-```shell=
+```shell
 sudo service csbot restart
 ```
 

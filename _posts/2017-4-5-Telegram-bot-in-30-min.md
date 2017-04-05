@@ -10,7 +10,7 @@ tags: [python, flask, telegram-sdk, bot, redis]
 
 У меня есть сервер Counter Strike 1.6, на котором я временами играю с друзьями. Заходить в игру, чтобы проверить наличие там игроков, лень. Напишем бота, который будет доставать для нас информацию о сервере и список игроков со счетом и выводить в удобном формате.  
 
-![Telegram logo]({{ site.baseurl }}/images/tg_logo.svg)
+![Telegram logo]({{ site.baseurl }}/images/telegram-bot.svg)
 
 *Для того, чтобы проследить за действиями, достаточно базовых знаний linux, web и python.*
 
@@ -92,7 +92,7 @@ sudo service nginx start
 Первая команда обновит локальные репозитории, чтобы не было проблем с поиском нужных пакетом. Вторая поставит PIP, систему управления пакетами python, веб сервер nginx и devпакет python. Третья команда запустит веб сервер.
 
 Если вы сейчас введете ip адрес вашего сервера в браузере любого компьютера подключенного к сети интернет, вы получите окно приветствия nginx.
-![Nginx hello world]({{ site.baseurl }}/images/nginxstart.png)
+![Nginx hello world]({{ site.baseurl }}/images/nginx.png)
 
 Выключим на пока наш веб сервер и займемся python.
 
@@ -517,5 +517,5 @@ sudo service csbot restart
 Логи веб сервера находятся в /var/log/nginx/
 Логи нашего приложения и uwsgi в /var/log/uwsgi/
 
-Код бота можно найти тут: [https://github.com/mrZizik/CSBot](https://github.com/mrZizik/CSBot)
+Код бота можно найти тут: [https://github.com/mrZizik/CSBot](https://github.com/mrZizik/CSBot) \\
 Написать ему можно тут: [@csinfobot](https://t.me/csinfobot)

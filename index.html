@@ -5,6 +5,8 @@ layout: default
 
 <div class="posts">
   {% for post in site.posts %}
-      <h3><a style="color: #000; text-decoration: none;" href="{{ site.baseurl }}{{ post.url }}">{{ post.date | date_to_string }} | {{ post.title }}</a></h3>
+      <h3><a class="link" href="{{ site.baseurl }}{{ post.url }}">
+      <span style="date">{{ post.date | date_to_string }} </span>
+      | {{ post.title }}</a></h3>
   {% endfor %}
 </div>

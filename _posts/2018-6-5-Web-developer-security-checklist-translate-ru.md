@@ -118,5 +118,5 @@ tags: [infosec, webdevelopment, security, вебРазработка, безоа
 
 - Имейте готовый план действий, на случай атаки. Однажды он может пригодиться.
 
-Оригинал: https://medium.com/simple-security/web-developer-security-checklist-f2e4f43c9c56
+Оригинал: https://medium.com/simple-security/web-developer-security-checklist-f2e4f43c9c56 \\
 Github: https://github.com/virajkulkarni14/WebDeveloperSecurityChecklist

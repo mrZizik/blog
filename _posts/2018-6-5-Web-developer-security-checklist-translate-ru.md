@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Чеклист безопасности веб проекта [Перевод]
+title: Чеклист для веб-разработчика [Перевод]
 disqus: true
 category: InfoSec
 tags: [infosec, webdevelopment, security, вебРазработка, безоасность, перевод, translation]

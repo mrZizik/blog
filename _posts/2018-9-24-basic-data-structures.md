@@ -6,7 +6,7 @@ category: Study
 tags: [study, computer-science, algorithms, array, list, linked list, algorithmic-complexity, dynamic-array, stack, linked-list, list]
 ---
 
-Продолжаем тему CS. В этом посте разберем базовые структуры данных, такие как: массив, связанный список и стек.
+Продолжаем тему CS. В этом посте разберем базовые структуры данных, такие как: массив, связный список и стек.
 
 ## Массив
 

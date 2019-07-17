@@ -110,13 +110,14 @@ sudo service nginx stop
 sudo pip install virtualenv
 ```
 
-Создаем папку проекта и стартуем в ней новое изолированное окружение.
+Создаем папку проекта в домашней и стартуем в ней новое изолированное окружение.
 
 ```shell
+cd ~
 mkdir CSBot
 cd CSBot
 virtualenv csbot
-source bin/activate
+source csbot/bin/activate
 ```
 Теперь у нас есть локальная копия python, pip и все python модули установленные внутри останутся в этом окружении. 
 
@@ -133,7 +134,7 @@ pip install uwsgi flask
 В папке с проектом создадим наш главный файл в котором будет хранится код.
 
 ```python
-# file - csbot.py
+# file - ~/CSBot/csbot.py
 from flask import Flask # Импортируем модули
 app = Flask(__name__) # Создаем приложение
 
@@ -145,7 +146,7 @@ def hello_world():
 Так же напишем скрипт, который будет запускать наше Flask приложение.
 
 ```python
-# file - wsgi.py
+# file - ~/CSBot/wsgi.py
 from csbot import app # Импортируем наше приложение
 
 if __name__ == "__main__":
@@ -156,6 +157,7 @@ if __name__ == "__main__":
 Запускам uwsgi командой:
 
 ```shell
+cd ~/CSBot
 uwsgi --socket 0.0.0.0:5000 --protocol=http -w wsgi:app
 ```
 Если все прошло успешно, вы, перейдя в своем браузере по адресу вашего сервера и порт 5000 должны увидеть It's working.
@@ -169,7 +171,7 @@ uwsgi --socket 0.0.0.0:5000 --protocol=http -w wsgi:app
 deactivate
 ```
 
-Потом создадим .ini конфиг для uwsgi в папке с ботом.
+Потом создадим .ini конфиг для uwsgi в папке с ботом по пути```~/CSBot/csbot.ini```.
 Конфиг задает количество процессов, имя сокета, права и файл для логирования.
 
 ```shell
@@ -190,7 +192,7 @@ logto = /var/log/uwsgi/%n.log
 Так же создадим папку для логов и сделаем ее владельцем себя.
 
 ```shell
-mkdir /var/log/uwsgi
+sudo mkdir /var/log/uwsgi
 sudo chown -R gorec:gorec /var/log/uwsgi
 ```
 Создадим так же systemd unit файл, для атвоматизации запуска нашего бота.
@@ -277,8 +279,10 @@ sudo service nginx restart
 
 ```shell
 cd /etc/ssl/
-sudo openssl genrsa -des3 -passout pass:x -out server.pass.key 2048
-sudo openssl rsa -passin pass:x -in server.pass.key -out server.key
+sudo mkdir gorec
+cd gorec
+sudo openssl genrsa -des3 -passout pass:xxxx -out server.pass.key 2048
+sudo openssl rsa -passin pass:xxxx -in server.pass.key -out server.key
 rm server.pass.key
 sudo openssl req -new -key server.key -out server.csr
 ```
@@ -288,6 +292,7 @@ sudo openssl req -new -key server.key -out server.csr
 Следующей командой мы получим сертификат из сгененрированного выше приватного ключа.
 
 ```shell
+cd /etc/ssl/gorec
 sudo openssl x509 -req -sha256 -days 365 -in server.csr -signkey server.key -out server.crt
 ```
 
@@ -337,9 +342,11 @@ sudo service nginx restart
 Сначала установим модуль для работы с Telegram - python-telegram-bot
 
 ```shell
+cd ~/CSBot
+source csbot/bin/activate
 sudo pip install python-telegram-bot
 ```
-Теперь напишем код бота, который всегда отвечает словом hello на любое наше сообщение.
+Теперь напишем код бота (```~/CSBot/csbot.py```), который всегда отвечает словом hello на любое наше сообщение.
 
 ```python
 # -*- coding: utf-8 -*-
@@ -470,6 +477,8 @@ def index():
 Для начала установим наш модуль для работы с valve серверами. Не забудьте перейти в окружение перед установкой. 
 
 ```shell
+cd ~/CSBot
+source csbot/bin/activate
 pip install python-valve
 ```
 

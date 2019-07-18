@@ -310,8 +310,8 @@ server {
     listen 443 default ssl;
     server_name ваш_ип;
     keepalive_timeout   60;
-    ssl_certificate /etc/ssl/server.crt;
-    ssl_certificate_key  /etc/ssl/server.key;
+    ssl_certificate /etc/ssl/gorec/server.crt;
+    ssl_certificate_key  /etc/ssl/gorec/server.key;
     ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
     ssl_ciphers  "HIGH:!RC4:!aNULL:!MD5:!kEDH";
     add_header Strict-Transport-Security 'max-age=604800';
